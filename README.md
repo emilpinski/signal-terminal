@@ -84,3 +84,7 @@ Live — @SignalTerminalBot |
 
 ---
 Built by [Emil Piński](https://emilpinski.pl)
+
+## Screenshots
+
+![Screenshot 1](docs/screenshots/signalbot_telegram.jpg)
