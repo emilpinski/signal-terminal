@@ -4,27 +4,22 @@
 
 > Real-time Solana pump.fun signal bot — KOL wallet tracking, volume spike detection, Telegram alerts.
 
-![Screenshot](screenshot.png)
-
 ## What is it
 
-Signal Terminal is an async Python bot that monitors new tokens created on pump.fun in real time via WebSocket PumpPortal. Every new token is automatically scored based on: rug check, holder concentration, KOL wallet activity, and volume. Tokens with a score above the threshold are delivered as signals to a Telegram channel with a full briefing (mcap, score, links to DexScreener and Birdeye).
-
-Built for traders and crypto enthusiasts looking for early signals on pump.fun before the pump.
+Signal Terminal is an async Python bot that monitors new tokens created on pump.fun in real time via WebSocket. Every new token is automatically scored based on: rug check, holder concentration, KOL wallet activity, and volume. Tokens with a score above the threshold are delivered as signals to a Telegram channel with a full briefing (market cap, score, links to DexScreener and Birdeye).
 
 ## Features
 
-- **Real-time WebSocket** — PumpPortal `wss://pumpportal.fun/api/data`, zero latency on new tokens
+- **Real-time WebSocket** — PumpPortal `wss://pumpportal.fun/api/data`, low latency on new token events
 - **Scoring engine** — multi-factor scoring: rug check (RugCheck.xyz), holder concentration (Helius RPC), market cap, initial buy
-- **KOL Wallet Tracker** — tracking known smart money wallets, bonus score when a KOL buys
-- **Smart Money Tracker** — analyzing token creator wallet profit history
-- **Volume Spike Detector** — detecting sudden volume surges after graduation on Raydium/PumpSwap
-- **Migration monitoring** — tracking tokens reaching $69K mcap and migrating to Raydium
+- **KOL Wallet Tracker** — tracks known smart money wallets, score bonus when a KOL buys
+- **Smart Money Tracker** — analyzes token creator wallet profit history
+- **Volume Spike Detector** — detects sudden volume surges after graduation on Raydium/PumpSwap before significant volume spikes
+- **Migration monitoring** — tracks tokens reaching $69K mcap and migrating to Raydium
 - **Telegram signals** — formatted alerts with inline buttons (DexScreener, Birdeye, pump.fun)
 - **SQLite persistence** — token history, signals, scan statistics (aiosqlite)
 - **Dashboard** — local web UI with bot statistics and signal history
 - **Auto-reconnect** — WebSocket with exponential backoff on disconnect
-- **
 
 ## Stack
 
@@ -37,27 +32,6 @@ Built for traders and crypto enthusiasts looking for early signals on pump.fun b
 | HTTP | aiohttp (async) |
 | Data | PumpPortal WS, DexScreener API, RugCheck API, Helius RPC |
 | Deploy | Linux daemon (systemd / screen) |
-
-## Getting Started
-
-```bash
-git clone https://github.com/emilpinski/signal-terminal
-cd signal-terminal
-pip install -r requirements.txt
-cp .env.example .env
-# Fill in environment variables
-python run_v2.py
-```
-
-## Environment Variables
-
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `TELEGRAM_BOT_TOKEN` | Telegram bot token | yes |
-| `TELEGRAM_CHANNEL_ID` | Telegram channel/group ID | yes |
-| `HELIUS_RPC_URL` | Helius RPC URL (with API key) | yes |
-| `MIN_SCORE` | Minimum score for signal (default 60) | no |
-| `HOT_SIGNAL_SCORE` | Score for "HOT" signal (default 80) | no |
 
 ## Architecture
 
@@ -80,11 +54,13 @@ signal-terminal/
 
 ## Status
 
-Live — @SignalTerminalBot | 
+Live — [@SignalTerminalBot](https://t.me/SignalTerminalBot)
 
 ---
 Built by [Emil Piński](https://emilpinski.pl)
 
+> Source code is private. [Contact for collaboration](mailto:emilpinskidev@gmail.com)
+
 ## Screenshots
 
-![Screenshot](screenshot.png)
+![Telegram signal alert](docs/screenshots/signalbot_telegram.jpg)
