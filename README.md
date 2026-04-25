@@ -24,7 +24,7 @@ Built for traders and crypto enthusiasts looking for early signals on pump.fun b
 - **SQLite persistence** — token history, signals, scan statistics (aiosqlite)
 - **Dashboard** — local web UI with bot statistics and signal history
 - **Auto-reconnect** — WebSocket with exponential backoff on disconnect
-- **Win rate tracking** — ~26% win rate from 362+ scanned signals
+- **
 
 ## Stack
 
@@ -80,7 +80,7 @@ signal-terminal/
 
 ## Status
 
-Live — @SignalTerminalBot | ~26% win rate, 362+ signals
+Live — @SignalTerminalBot | 
 
 ---
 Built by [Emil Piński](https://emilpinski.pl)
