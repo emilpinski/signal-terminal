@@ -4,81 +4,81 @@
 
 ![Screenshot](./screenshot.png)
 
-## Co to jest
+## What is it
 
-Signal Terminal to asynchroniczny bot napisany w Pythonie, który monitoruje w czasie rzeczywistym nowe tokeny tworzone na pump.fun przez WebSocket PumpPortal. Każdy nowy token jest automatycznie scorowany na podstawie: rug check, koncentracji holderów, aktywności KOL walletów i wolumenu. Tokeny z wynikiem powyżej progu trafiają jako sygnały do kanału Telegram z pełnym briefingiem (mcap, score, linki do DexScreener i Birdeye).
+Signal Terminal is an async Python bot that monitors new tokens created on pump.fun in real time via WebSocket PumpPortal. Every new token is automatically scored based on: rug check, holder concentration, KOL wallet activity, and volume. Tokens with a score above the threshold are delivered as signals to a Telegram channel with a full briefing (mcap, score, links to DexScreener and Birdeye).
 
-Projekt zbudowany dla traderów i krypto-entuzjastów szukających early signals na pump.fun przed pump-em.
+Built for traders and crypto enthusiasts looking for early signals on pump.fun before the pump.
 
-## Funkcje
+## Features
 
-- **Real-time WebSocket** — PumpPortal `wss://pumpportal.fun/api/data`, zero opóźnienia przy nowych tokenach
-- **Scoring engine** — wieloczynnikowy scoring: rug check (RugCheck.xyz), holder concentration (Helius RPC), market cap, initial buy
-- **KOL Wallet Tracker** — śledzenie znanych smart money walletów, bonus score gdy KOL kupuje
-- **Smart Money Tracker** — analiza historii zysku walletów twórców tokenów
-- **Volume Spike Detector** — wykrywanie nagłych wzrostów wolumenu po graduation na Raydium/PumpSwap
-- **Migration monitoring** — śledzenie tokenów osiągających $69K mcap i przechodzących na Raydium
-- **Telegram signals** — sformatowane alerty z inline buttons (DexScreener, Birdeye, pump.fun)
-- **SQLite persistence** — historia tokenów, sygnałów, statystyki skanowania (aiosqlite)
-- **Dashboard** — lokalne web UI ze statystykami botów, historią sygnałów
-- **Auto-reconnect** — WebSocket z exponential backoff przy rozłączeniu
-- **Win rate tracking** — ~26% win rate z 362+ zeskanowanych sygnałów
+- **Real-time WebSocket** — PumpPortal `wss://pumpportal.fun/api/data`, zero latency on new tokens
+- **Scoring engine** — multi-factor scoring: rug check (RugCheck.xyz), holder concentration (Helius RPC), market cap, initial buy
+- **KOL Wallet Tracker** — tracking known smart money wallets, bonus score when a KOL buys
+- **Smart Money Tracker** — analyzing token creator wallet profit history
+- **Volume Spike Detector** — detecting sudden volume surges after graduation on Raydium/PumpSwap
+- **Migration monitoring** — tracking tokens reaching $69K mcap and migrating to Raydium
+- **Telegram signals** — formatted alerts with inline buttons (DexScreener, Birdeye, pump.fun)
+- **SQLite persistence** — token history, signals, scan statistics (aiosqlite)
+- **Dashboard** — local web UI with bot statistics and signal history
+- **Auto-reconnect** — WebSocket with exponential backoff on disconnect
+- **Win rate tracking** — ~26% win rate from 362+ scanned signals
 
 ## Stack
 
-| Warstwa | Technologia |
-|---------|-------------|
+| Layer | Technology |
+|-------|-----------|
 | Runtime | Python 3.11+ |
 | Telegram | python-telegram-bot v21+ (async Application API) |
 | WebSocket | websockets + aiohttp |
-| Baza danych | SQLite (aiosqlite) |
+| Database | SQLite (aiosqlite) |
 | HTTP | aiohttp (async) |
-| Dane | PumpPortal WS, DexScreener API, RugCheck API, Helius RPC |
+| Data | PumpPortal WS, DexScreener API, RugCheck API, Helius RPC |
 | Deploy | Linux daemon (systemd / screen) |
 
-## Uruchomienie
+## Getting Started
 
 ```bash
 git clone https://github.com/emilpinski/signal-terminal
 cd signal-terminal
 pip install -r requirements.txt
 cp .env.example .env
-# Uzupelnij zmienne srodowiskowe
+# Fill in environment variables
 python run_v2.py
 ```
 
-## Zmienne środowiskowe
+## Environment Variables
 
-| Zmienna | Opis | Wymagana |
-|---------|------|----------|
-| `TELEGRAM_BOT_TOKEN` | Token bota Telegram | ✅ |
-| `TELEGRAM_CHANNEL_ID` | ID kanalu/grupy Telegram | ✅ |
-| `HELIUS_RPC_URL` | URL Helius RPC (z API key) | ✅ |
-| `MIN_SCORE` | Minimalny score dla sygnalu (domyslnie 60) | ❌ |
-| `HOT_SIGNAL_SCORE` | Score dla "HOT" sygnalu (domyslnie 80) | ❌ |
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `TELEGRAM_BOT_TOKEN` | Telegram bot token | ✅ |
+| `TELEGRAM_CHANNEL_ID` | Telegram channel/group ID | ✅ |
+| `HELIUS_RPC_URL` | Helius RPC URL (with API key) | ✅ |
+| `MIN_SCORE` | Minimum score for signal (default 60) | ❌ |
+| `HOT_SIGNAL_SCORE` | Score for "HOT" signal (default 80) | ❌ |
 
-## Architektura
+## Architecture
 
 ```
 signal-terminal/
 ├── src/
-│   ├── bot.py          # Telegram bot, delivery sygnałów, komendy
+│   ├── bot.py          # Telegram bot, signal delivery, commands
 │   ├── scanner.py      # Orchestrator: WebSocket → enrich → score → signal
-│   ├── scorer.py       # Wieloczynnikowy scoring engine
-│   ├── kol_tracker.py  # Śledzenie KOL walletów
-│   ├── smart_money.py  # Analiza historii walletów twórców
-│   ├── volume_spike.py # Wykrywanie spikes po graduation
+│   ├── scorer.py       # Multi-factor scoring engine
+│   ├── kol_tracker.py  # KOL wallet tracking
+│   ├── smart_money.py  # Token creator wallet history analysis
+│   ├── volume_spike.py # Post-graduation spike detection
 │   ├── rugcheck.py     # RugCheck.xyz client
 │   ├── dexscreener.py  # DexScreener API client
 │   ├── helius.py       # Helius RPC client
 │   └── db.py           # SQLite persistence
 ├── run_v2.py           # Entry point
-└── dashboard/          # Lokalne web UI
+└── dashboard/          # Local web UI
 ```
 
 ## Status
 
-Live — @SignalTerminalBot | ~26% win rate, 362+ sygnałów
+Live — @SignalTerminalBot | ~26% win rate, 362+ signals
 
 ---
 Built by [Emil Piński](https://emilpinski.pl)
