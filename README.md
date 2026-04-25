@@ -1,8 +1,10 @@
 # Signal Terminal
 
+![Status](https://img.shields.io/badge/Status-Live-green)
+
 > Real-time Solana pump.fun signal bot — KOL wallet tracking, volume spike detection, Telegram alerts.
 
-![Screenshot](https://raw.githubusercontent.com/emilpinski/signal-terminal/main/docs/screenshots/signalbot_telegram.jpg)
+![Screenshot](./screenshot.png)
 
 ## What is it
 
@@ -51,11 +53,11 @@ python run_v2.py
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `TELEGRAM_BOT_TOKEN` | Telegram bot token | ✅ |
-| `TELEGRAM_CHANNEL_ID` | Telegram channel/group ID | ✅ |
-| `HELIUS_RPC_URL` | Helius RPC URL (with API key) | ✅ |
-| `MIN_SCORE` | Minimum score for signal (default 60) | ❌ |
-| `HOT_SIGNAL_SCORE` | Score for "HOT" signal (default 80) | ❌ |
+| `TELEGRAM_BOT_TOKEN` | Telegram bot token | yes |
+| `TELEGRAM_CHANNEL_ID` | Telegram channel/group ID | yes |
+| `HELIUS_RPC_URL` | Helius RPC URL (with API key) | yes |
+| `MIN_SCORE` | Minimum score for signal (default 60) | no |
+| `HOT_SIGNAL_SCORE` | Score for "HOT" signal (default 80) | no |
 
 ## Architecture
 
@@ -63,7 +65,7 @@ python run_v2.py
 signal-terminal/
 ├── src/
 │   ├── bot.py          # Telegram bot, signal delivery, commands
-│   ├── scanner.py      # Orchestrator: WebSocket → enrich → score → signal
+│   ├── scanner.py      # Orchestrator: WebSocket -> enrich -> score -> signal
 │   ├── scorer.py       # Multi-factor scoring engine
 │   ├── kol_tracker.py  # KOL wallet tracking
 │   ├── smart_money.py  # Token creator wallet history analysis
