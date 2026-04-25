@@ -4,7 +4,7 @@
 
 > Real-time Solana pump.fun signal bot — KOL wallet tracking, volume spike detection, Telegram alerts.
 
-![Screenshot](./screenshot.png)
+![Screenshot](screenshot.png)
 
 ## What is it
 
@@ -87,4 +87,4 @@ Built by [Emil Piński](https://emilpinski.pl)
 
 ## Screenshots
 
-![Screenshot 1](docs/screenshots/signalbot_telegram.jpg)
+![Screenshot](screenshot.png)
